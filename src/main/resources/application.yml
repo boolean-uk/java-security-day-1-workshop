@@ -5,3 +5,19 @@ server:
     include-binding-errors: always
     include-stacktrace: never
     include-exception: false
+
+spring:
+  datasource:
+    url: jdbc:postgresql://tai.db.elephantsql.com:5432/gdhmofca
+    username: gdhmofca
+    password: p_7OtxtqwyqoxL0Yhdkr9ceQZzZAIR2_
+    max-active: 5
+    max-idle: 5
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true

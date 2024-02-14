@@ -1,10 +1,14 @@
 package com.booleanuk.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "books")
@@ -16,11 +20,16 @@ public class Book {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "author")
-    private String author;
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false )
+    @JsonIncludeProperties(value = {"id","first_name", "last_name", "email", "alive"})
+    private Author author;
 
-    @Column(name = "publisher")
-    private String publisher;
+    @ManyToOne
+    @JoinColumn(name = "publisher_id", nullable = false )
+    @JsonIncludeProperties(value = {"id","name", "location"})
+    private Publisher publisher;
+
 
     @Column(name = "year")
     private int year;
@@ -28,7 +37,11 @@ public class Book {
     @Column(name = "genre")
     private String genre;
 
-    public Book(String title, String author, String publisher, int year, String genre) {
+    public Book(int id) {
+        this.id = id;
+    }
+
+    public Book(String title, Author author, Publisher publisher, int year, String genre) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
